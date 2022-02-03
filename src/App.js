@@ -1,24 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import React, { useState } from "react";
 
+function return4() {
+  console.log("called");
+  return 4;
+}
 function App() {
+  const [count, setCount] = useState(return4); //called Once pass function is good idea
+  //const [count, setCount] = useState(return4()); //called each time
+  const addCount = () => {
+    setCount(count + 1);
+  };
+  const addCount2WrongWay = () => {
+    setCount(count + 1);
+    setCount(count + 1);
+  };
+  const addCount2RightWay = () => {
+    setCount((PrevCount) => PrevCount + 1);
+    setCount((PrevCount) => PrevCount + 1);
+  };
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <button
+        onClick={() => {
+          setCount(count - 1);
+        }}
+      >
+        -
+      </button>
+      <span>{count}</span>
+      <button onClick={addCount}>+</button>
+      <button onClick={addCount2WrongWay}>++wrong</button>
+      <button onClick={addCount2RightWay}>++right</button>
+    </>
   );
 }
 
